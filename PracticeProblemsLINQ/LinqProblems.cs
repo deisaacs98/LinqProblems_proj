@@ -10,7 +10,7 @@ namespace PracticeProblemsLINQ
     {
         //Weighted project points: /10
         //Project points: /25
-       
+
         #region Problem 1 
         //(5 points) Problem 1
         //Using LINQ, write a method that takes in a list of strings and returns all words that contain the substring “th” from a list.
@@ -73,8 +73,8 @@ namespace PracticeProblemsLINQ
         public static double RunProblem5(List<string> classGrades)
         {
             //code
-            var minGrade = classGrades.Select(c => c.Split(',').Select(d=>Int32.Parse(d)).Min()).ToList();
-            var grades = classGrades.Select(c=>c.Split(',').Select(d=>Int32.Parse(d)).Except(minGrade)).ToList();
+            var minGrade = classGrades.Select(c => c.Split(',').Select(d => Int32.Parse(d)).Min()).ToList();
+            var grades = classGrades.Select(c => c.Split(',').Select(d => Int32.Parse(d)).Except(minGrade)).ToList();
             var db = grades.Select(c => c.Average()).Average();
             //return
             return db;
@@ -82,17 +82,29 @@ namespace PracticeProblemsLINQ
         }
         #endregion
 
-        //#region Bonus Problem 1
-        ////(5 points) Bonus Problem 1
-        ////Write a method that takes in a string of letters(i.e. “Terrill”) 
-        ////and returns an alphabetically ordered string corresponding to the letter frequency(i.e. "E1I1L2R2T1")
-        //public static string RunBonusProblem1(string word)
-        //{
-        //    //code
+        #region Bonus Problem 1
+        //(5 points) Bonus Problem 1
+        //Write a method that takes in a string of letters(i.e. “Terrill”) 
+        //and returns an alphabetically ordered string corresponding to the letter frequency(i.e. "E1I1L2R2T1")
+        public static string RunBonusProblem1(string word)
+        {
+            //code
 
-        //    //return
+            //var orderedString = word.ToCharArray().Select(w => w).OrderBy(w=>w).ToList();
+            //var lettersList = orderedString.Select(x=>x).GroupBy(x=>x).ToList();
+            //var countList = orderedString.Select(x => x).Where(x=>x==orderedString.Count()).ToList();
+            //var newString = lettersList.Zip(countList,(first,second)=>first.ToString()+second.ToString()).ToString();
 
-        //}
-        //#endregion
+            var orderedString = string.Join("", (word.ToCharArray().Select(w => w).OrderBy(w => w)));
+
+            string newString="";
+            orderedString.GroupBy(ch => ch).Select(a => new { ch = a.Key, count = a.Count() }).ToList().ForEach(x =>  newString += x.ch.ToString().ToUpper() + x.count.ToString());
+            //return
+            return newString;
+
+
+            }
+        }
+        #endregion
+    
     }
-}
