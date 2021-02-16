@@ -73,9 +73,9 @@ namespace PracticeProblemsLINQ
         public static double RunProblem5(List<string> classGrades)
         {
             //code
-            var minGrade = classGrades.Select(c => c.Split(',').Min()).ToList();
-            var grades = classGrades.Where(c => !c.Equals(minGrade)).ToList();
-            var db = grades.Select(c => c.Select(d => Int32.Parse(d)).Average()).Average();
+            var minGrade = classGrades.Select(c => c.Split(',').Select(d=>Int32.Parse(d)).Min()).ToList();
+            var grades = classGrades.Select(c=>c.Split(',').Select(d=>Int32.Parse(d)).Except(minGrade)).ToList();
+            var db = grades.Select(c => c.Average()).Average();
             //return
             return db;
 
